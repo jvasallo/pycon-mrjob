@@ -27,7 +27,7 @@ class TopPages(MRJob):
         """Extracts the Vroot that was visited"""
         cell = csv_readline(line)
         if cell[0] == 'V':
-            yield cell[0], 1 
+            yield cell[1], 1 
             ### FILL IN
             # What  Key, Value  do we want to output?
 
