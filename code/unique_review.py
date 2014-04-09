@@ -22,6 +22,8 @@ class UniqueReview(MRJob):
          "business_id": "RqbSeoeqXTwts5pfhw7nJg"}
         """
         if record['type'] == 'review':
+            for word in WORD_RE.findall(record['text']):
+                yield [word.lower(), record['review_id']]
             ###
             # TODO: for each word in the review, yield the correct key,value
             # pair:
@@ -35,6 +37,8 @@ class UniqueReview(MRJob):
         and 1 (the number of words that were unique)."""
 
         unique_reviews = set(review_ids)  # set() uniques an iterator
+        if len(unique_reviews) == 1:
+            yield [unique_reviews.pop(), 1]
         ###
         # TODO: yield the correct pair when the desired condition is met:
         # if ___:
@@ -43,6 +47,7 @@ class UniqueReview(MRJob):
 
     def count_unique_words(self, review_id, unique_word_counts):
         """Output the number of unique words for a given review_id"""
+        yield [review_id, sum(unique_word_counts)]
         ###
         # TODO: summarize unique_word_counts and output the result
         # 
