@@ -23,11 +23,13 @@ class CountTitles(MRJob):
         """Extracts the Vroot that was visited"""
         cell = csv_readline(line)
         if cell[0] == 'V':
-            yield ### FILL IN
-                  # How to "tag" this value for a given Key?
+            yield cell[1], ('V', 1) 
+            ### FILL IN
+            # How to "tag" this value for a given Key?
         elif cell[0] == 'A':
-            yield ### FILL IN
-                  # How to "tag" this value for a given Key?
+            yield cell[1], ('A', cell[3])
+            ### FILL IN
+            # How to "tag" this value for a given Key?
 
     def reducer(self, vroot, visit_counts_and_title):
         """Sumarizes the visit counts by adding them together.  Extracts title,
@@ -36,10 +38,12 @@ class CountTitles(MRJob):
         title = ''
 
         for value in visit_counts_and_title:
-            if # FILL IN: value is a visit type:
-                total += # FILL IN: extract untagged value
-            elif # FILL IN: value is a attribute type:
-                title = # FILL IN: extract untagged title
+            if value[0] == 'V':# FILL IN: value is a visit type:
+                total += value[1]
+                # FILL IN: extract untagged value
+            elif value[0] == 'A':# FILL IN: value is a attribute type:
+                title = value[1]
+                # FILL IN: extract untagged title
 
         yield title, total
         
